@@ -1,18 +1,18 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"//,
-//        "componentPlaceholder": {
-//          // "其他分包自定义组件": "占位组件"
-//          "sync-comp": "view"
-//        },
-//        "usingComponents": {
-//          "sync-comp": "/packageA/components/test"
-//        }
-			}
-		},
+  "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "uni-app",
+        "componentPlaceholder": {
+          // "其他分包自定义组件": "占位组件"
+          "sync-comp": "view"
+        },
+        "usingComponents": {
+          "sync-comp": "/packageA/components/test"
+        }
+      }
+    },
     {
       "path": "pages/index/test/inner",
       "style": {
@@ -29,11 +29,11 @@
       ]
     }
   ],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	},
-	"uniIdRouter": {}
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "uniIdRouter": {}
 }
