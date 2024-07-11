@@ -1,0 +1,14 @@
+{
+  "name": "zion-uniapp-mp-load-package",
+  "version": "1.0.0",
+  "description": "这是一个uniapp微信小程序跨包加载js的插件，支持vue2、vue3。",
+  "keywords": [],
+  "author": "Zion Lin<zionlzh594@gmail.com>",
+  "license": "MIT",
+  "types": "./index.d.ts",
+  "repository": {
+    // 代码托管位置
+    "type": "git",
+    "url": "https://github.com/zionLZH/zion-uniapp-mp-load-package"
+  }
+}
