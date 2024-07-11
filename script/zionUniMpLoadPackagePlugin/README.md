@@ -100,4 +100,4 @@ export default defineConfig({
 如果我的插件对你有帮助可以请我喝杯咖啡呀  
 
 
-![donate.png](donate.png)
+![donate.png](https://raw.githubusercontent.com/zionLZH/zion-uniapp-mp-load-package/main/donate.png)
