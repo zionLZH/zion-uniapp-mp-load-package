@@ -87,6 +87,20 @@ export default defineConfig({
 });
 ````
 
+### 调用方法
+当你添加了本插件之后，就可以使用本插件提供的俩个api，直接加载跨包的js（当然这一切是异步化的）
+````
+loadMpPackage("packageA", () => {
+    // ...
+    console.log('加载成功')
+    console.log(loadMpPackageModule('/packageA/sdk/index.js'))
+    console.log(loadMpPackageModule('/packageA/sdk/index.js').a())
+}, ({mod, errMsg}) => {
+    // ...
+    console.log('加载出错', mod, errMsg)
+})
+````
+
 ## 常见问题
 ### 分包之后编译后对应的js没有出现在编译结果
 请参考git对应的demo工厂中的配置，此处我们需要虚构一个页面并且配置在pages.json的subpackages内

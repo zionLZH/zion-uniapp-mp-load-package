@@ -1,7 +1,7 @@
 <template>
   <view style="width: 100vw;height: 100vh;background:#f2f2f2;">
     <view>这是页面内容</view>
-<!--    <sync-comp :test="123">这是外面传进来的内容</sync-comp>-->
+    <sync-comp :test="123">这是外面传进来的内容</sync-comp>
     <view>这是子组件</view>
     <innerComp/>
     <button @click="pgAJs">load pgA js</button>
