@@ -107,6 +107,12 @@ loadMpPackage("packageA", () => {
 [对应页面hack.vue](https://github.com/zionLZH/zion-uniapp-mp-load-package/blob/main/packageA/hack.vue)
 [对应的pages.json配置](https://github.com/zionLZH/zion-uniapp-mp-load-package/blob/main/pages.json#L27)
 
+### 分包之后发行后Vue2版本无法正常获取分包js
+分包js要确保导出一个对象，请勿使用导出多个方法的方式，请把要导出的多个方法以对象形式封装后导出
+
+### 使用typescript分包之后找不到对应的分包js
+请更新npm模块或者重新拉最新的git代码，已经修复
+
 ## 联系我
 对于git有其他问题的，可以前往git提交issue或者发邮件联系我。
 
