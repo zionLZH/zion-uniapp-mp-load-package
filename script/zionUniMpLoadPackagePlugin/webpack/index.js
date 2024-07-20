@@ -56,7 +56,8 @@ class zionUniMpLoadPackagePlugin {
           // content = content + getLoadMpPackageCode(absPath)
         }
         if (content.indexOf('loadMpPackageModule') >= 0) {
-          if (process.env.mode == 'development') {
+          // hbx3.9.x开始判断是否为开发环境用process.env.BABEL_ENV == 'development'
+          if (process.env.mode == 'development' || process.env.BABEL_ENV == 'development') {
             content = content.replace(/loadMpPackageModule/g, '__webpack_require__');
           } else {
             content = content.replace(/loadMpPackageModule/g, 'a');
