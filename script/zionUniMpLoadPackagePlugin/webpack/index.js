@@ -12,7 +12,7 @@ class zionUniMpLoadPackagePlugin {
       compilation.hooks.optimizeModuleIds.tap('zionUniMpLoadPackagePlugin', modules => {
         for (let module of modules) {
           if (module && module.resource && module.resource.indexOf(inputPath) >= 0) {
-            if (module.resource.indexOf('.js') >= 0) {
+            if (module.resource.indexOf('.js') >= 0 || module.resource.indexOf('.ts') >= 0) {
               const splited = module.resource.split(inputPath)
               module.id = splited[1] || splited[0]
             }
@@ -24,7 +24,7 @@ class zionUniMpLoadPackagePlugin {
     compiler.hooks.emit.tap('zionUniMpLoadPackagePlugin', (compilation) => {
       const files = ['common/vendor.js', 'common/main.js']
       Object.keys(compilation.assets).map(fileUrl => {
-        if (!fileUrl.endsWith('.js')) {
+        if (!fileUrl.endsWith('.js') && !fileUrl.endsWith('.ts')) {
           return
         }
         let content = compilation.assets[fileUrl].source();
