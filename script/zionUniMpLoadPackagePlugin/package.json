@@ -1,6 +1,6 @@
 {
   "name": "zion-uniapp-mp-load-package",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "这是一个uniapp微信小程序跨包加载js的插件，支持vue2、vue3。",
   "keywords": [],
   "author": "Zion Lin<zionlzh594@gmail.com>",
