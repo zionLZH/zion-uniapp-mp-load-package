@@ -13,7 +13,7 @@ class zionUniMpLoadPackagePlugin {
         for (let module of modules) {
           if (module && module.resource && module.resource.indexOf(inputPath) >= 0) {
             if (module.resource.indexOf('.js') >= 0 || module.resource.indexOf('.ts') >= 0) {
-              const splited = module.resource.split(inputPath)
+              const splited = module.resource.split(inputPath).map(o => o.replace(/\\/gi, '/'))
               module.id = splited[1] || splited[0]
             }
           }
