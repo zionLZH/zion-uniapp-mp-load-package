@@ -60,7 +60,10 @@ class zionUniMpLoadPackagePlugin {
           if (process.env.mode == 'development' || process.env.BABEL_ENV == 'development') {
             content = content.replace(/loadMpPackageModule/g, '__webpack_require__');
           } else {
-            content = content.replace(/loadMpPackageModule/g, 'a');
+            // 在这里要特殊处理，要根据这个去找对应的webpack require
+            const loadIdx = content.indexOf(`){"use strict"`)
+            const loadFnName = content.substr(loadIdx - 1, 1)
+            content = content.replace(/loadMpPackageModule/g, loadFnName);
           }
         }
         compilation.assets[fileUrl] = {
