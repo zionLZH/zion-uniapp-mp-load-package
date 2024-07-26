@@ -1,10 +1,45 @@
+const fs = require('fs')
+const path = require('path')
+const json5 = require('json5')
 class zionUniMpLoadPackagePlugin {
   apply(compiler) {
 
     const inputPath = process.env.UNI_INPUT_DIR
 
+    let pages = json5.parse(
+      fs.readFileSync(path.join(inputPath, 'pages.json'), 'utf8')
+    )
+    let subPackages = (pages.subPackages || []).map(o => o.root)
+
     function getLoadMpPackageCode(path) {
       return `\r\nfunction loadMpPackage(a,b,c){require.async('${path}'+a+'/common/vendor.js').then(b).catch(c)};`
+    }
+
+    function isNeedRebuildModuleId(modulePath) {
+      if (modulePath.indexOf('node_modules') >= 0) {
+        return false
+      }
+      // 判断是否是在分包里面的
+      const hasSubPackage = subPackages.findIndex(o => modulePath.indexOf(o) >= 0)
+      return hasSubPackage >= 0
+    }
+
+    let ids = []
+    function stringToFourCharHash(str) {
+      let idx = ids.indexOf(str)
+      if (idx >= 0) {
+        return 's' + idx
+      }
+      idx = ids.push(str) - 1
+      return 's' + idx
+      let hash = 5381;
+      for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) + hash) + str.charCodeAt(i);
+        // Convert to 32bit integer
+        hash &= hash;
+      }
+      // Convert the hash to hexadecimal and pad with zeros if necessary
+      return ('0000' + hash.toString(16).toUpperCase()).slice(-4);
     }
 
     compiler.hooks.compilation.tap('module-id', (compilation) => {
@@ -13,9 +48,16 @@ class zionUniMpLoadPackagePlugin {
         for (let module of modules) {
           if (module && module.resource && module.resource.indexOf(inputPath) >= 0) {
             if (module.resource.indexOf('.js') >= 0 || module.resource.indexOf('.ts') >= 0) {
-              const splited = module.resource.split(inputPath).map(o => o.replace(/\\/gi, '/'))
-              module.id = splited[1] || splited[0]
+              const needRebuild = isNeedRebuildModuleId(module.resource)
+              if (needRebuild) {
+                const splited = module.resource.split(inputPath).map(o => o.replace(/\\/gi, '/'))
+                module.id = splited[1] || splited[0]
+              } else {
+                module.id = stringToFourCharHash(module.resource)
+              }
             }
+          } else if (module && module.resource) {
+            module.id = stringToFourCharHash(module.resource)
           }
         }
       });

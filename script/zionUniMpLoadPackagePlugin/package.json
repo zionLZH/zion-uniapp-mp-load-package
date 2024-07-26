@@ -9,5 +9,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/zionLZH/zion-uniapp-mp-load-package"
+  },
+  "dependencies": {
+    "json5": "^2.2.3"
   }
 }
