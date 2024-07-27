@@ -116,7 +116,7 @@ class zionUniMpLoadPackagePlugin {
             const loadIdx = content.indexOf(`){"use strict"`)
             const loadFnName = content.substr(loadIdx - 1, 1)
             // 重定向loadFnName，因为webpack的加载函数在压缩的时候可能会被其他代码变量覆盖
-            content = content.replace(/"use strict"/gi, `"use strict";var w_require=${loadFnName};`)
+            content = content.replace(/"use strict"/gi, `"use strict";var w_require=null;try{w_require=${loadFnName};}catch(e){};`)
             content = content.replace(/loadMpPackageModule/g, 'w_require');
           }
         }
