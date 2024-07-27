@@ -6,10 +6,16 @@ class zionUniMpLoadPackagePlugin {
 
     const inputPath = process.env.UNI_INPUT_DIR
 
-    let pages = json5.parse(
-      fs.readFileSync(path.join(inputPath, 'pages.json'), 'utf8')
-    )
-    let subPackages = (pages.subPackages || []).map(o => o.root)
+    let pages,subPackages
+    try {
+      pages = json5.parse(
+        fs.readFileSync(path.join(inputPath, 'pages.json'), 'utf8')
+      )
+      subPackages = (pages.subPackages || []).map(o => o.root)
+    } catch (e) {
+
+    }
+    let subPackagesResolved = subPackages ? true : false
 
     function getLoadMpPackageCode(path) {
       return `\r\nfunction loadMpPackage(a,b,c){require.async('${path}'+a+'/common/vendor.js').then(b).catch(c)};`
@@ -20,6 +26,9 @@ class zionUniMpLoadPackagePlugin {
         return false
       }
       // 判断是否是在分包里面的
+      if (!subPackagesResolved) {
+        return true
+      }
       const hasSubPackage = subPackages.findIndex(o => modulePath.indexOf(o) >= 0)
       return hasSubPackage >= 0
     }
